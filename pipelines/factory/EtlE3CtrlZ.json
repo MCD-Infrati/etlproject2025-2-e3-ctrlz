@@ -1,0 +1,9 @@
+{
+	"name": "EtlE3CtrlZ",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "be290523-03b6-42a3-a1a0-39ea099b4939",
+		"tenantId": "e994072b-523e-4bfe-86e2-442c5e10b244"
+	}
+}
