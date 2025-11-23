@@ -1,5 +1,5 @@
 {
-	"name": "AzurePostgreSqlTable1",
+	"name": "amesdbtemp",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "NeonConn",
