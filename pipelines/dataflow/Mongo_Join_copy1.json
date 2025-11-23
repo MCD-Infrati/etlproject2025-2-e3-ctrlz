@@ -1,5 +1,5 @@
 {
-	"name": "Mongo_Join",
+	"name": "Mongo_Join_copy1",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -51,9 +51,6 @@
 				},
 				{
 					"name": "join3"
-				},
-				{
-					"name": "select1"
 				}
 			],
 			"scriptLines": [
@@ -118,38 +115,11 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join2",
-				"select1, join2 join(source1@{PID_$numberLong} == source3@{PID_$numberLong},",
+				"join1, join2 join(source1@{PID_$numberLong} == source3@{PID_$numberLong},",
 				"     joinType:'outer',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> join3",
-				"join1 select(mapColumn(",
-				"          {$oid} = source1@{$oid},",
-				"          {PID_$numberLong} = source1@{PID_$numberLong},",
-				"          {Bsmt Qual},",
-				"          {Bsmt Cond},",
-				"          {Bsmt Exposure},",
-				"          {BsmtFin Type 1},",
-				"          {BsmtFin SF 1_$numberLong},",
-				"          {BsmtFin Type 2},",
-				"          {BsmtFin SF 2_$numberLong},",
-				"          {Bsmt Unf SF_$numberLong},",
-				"          {Total Bsmt SF_$numberLong},",
-				"          {Bsmt Full Bath_$numberLong},",
-				"          {Bsmt Half Bath_$numberLong},",
-				"          {$oid} = source2@{$oid},",
-				"          {Order_$numberLong},",
-				"          {PID_$numberLong} = source2@{PID_$numberLong},",
-				"          {Garage Type},",
-				"          {Garage Yr Blt_$numberLong},",
-				"          {Garage Finish},",
-				"          {Garage Cars_$numberLong},",
-				"          {Garage Area_$numberLong},",
-				"          {Garage Qual},",
-				"          {Garage Cond}",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
 				"join3 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
