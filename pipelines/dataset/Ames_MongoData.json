@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText2",
+	"name": "Ames_MongoData",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Datalake_ames_e3",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "Ames_MongoData.csv",
+				"fileName": "Ames_MongoData",
 				"folderPath": "Raw Data",
 				"fileSystem": "adls-container"
 			},

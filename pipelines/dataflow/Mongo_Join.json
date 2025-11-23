@@ -36,7 +36,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "DelimitedText2",
+						"referenceName": "Ames_MongoData",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
