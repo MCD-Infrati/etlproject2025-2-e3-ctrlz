@@ -1,0 +1,130 @@
+{
+	"name": "Mongo_Join",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "bsmtCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "garageCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "miscCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				},
+				{
+					"dataset": {
+						"referenceName": "PoolCSV",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "join1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "join3"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {$oid} as string,",
+				"          {PID_$numberLong} as string,",
+				"          {Bsmt Qual} as string,",
+				"          {Bsmt Cond} as string,",
+				"          {Bsmt Exposure} as string,",
+				"          {BsmtFin Type 1} as string,",
+				"          {BsmtFin SF 1_$numberLong} as string,",
+				"          {BsmtFin Type 2} as string,",
+				"          {BsmtFin SF 2_$numberLong} as string,",
+				"          {Bsmt Unf SF_$numberLong} as string,",
+				"          {Total Bsmt SF_$numberLong} as string,",
+				"          {Bsmt Full Bath_$numberLong} as string,",
+				"          {Bsmt Half Bath_$numberLong} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          {Garage Type} as string,",
+				"          {Garage Finish} as string,",
+				"          {Garage Qual} as string,",
+				"          {Garage Cond} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(output(",
+				"          {$oid} as string,",
+				"          {PID_$numberLong} as string,",
+				"          {Misc Feature} as string,",
+				"          {Misc Val_$numberLong} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source(output(",
+				"          {$oid} as string,",
+				"          {PID_$numberLong} as string,",
+				"          {Pool Area_$numberLong} as string,",
+				"          {Pool QC} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source4",
+				"source1, source2 join({PID_$numberLong} == ERROR_FUNCTION(''),",
+				"     joinType:'outer',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"source3, source4 join(source3@{PID_$numberLong} == source4@{PID_$numberLong},",
+				"     joinType:'outer',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"join1, join2 join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     joinType:'outer',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3",
+				"join3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {PID;Lot Frontage;Lot Area;Street;Alley;Lot Shape;Land Contour;Utilities;Lot Config;Land Slope;Neighborhood;Condition 1;Condition 2;Bldg Type;House Style;Overall Qual;Overall Cond;Year Built;Year Remod/Add} as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
