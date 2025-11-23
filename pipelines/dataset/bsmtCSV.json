@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "bsmtCSV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Datalake_ames_e3",
@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "bsmtCSV",
 				"folderPath": "Raw Data",
 				"fileSystem": "adls-container"
 			},

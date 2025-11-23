@@ -230,7 +230,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DelimitedText1",
+						"referenceName": "bsmtCSV",
 						"type": "DatasetReference"
 					}
 				]
