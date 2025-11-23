@@ -30,7 +30,44 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Pool Area']['$numberLong']"
+								},
+								"sink": {
+									"name": "Pool Area_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Pool QC']"
+								},
+								"sink": {
+									"name": "Pool QC"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{

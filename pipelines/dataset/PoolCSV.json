@@ -1,0 +1,41 @@
+{
+	"name": "PoolCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_ames_e3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "data_bbf98c6b-8079-4738-ad92-8bb38683a75b_1999e619-e8d9-48e6-8951-8eb92cea3ec2.txt",
+				"folderPath": "Raw Data",
+				"fileSystem": "adls-container"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "$oid",
+				"type": "String"
+			},
+			{
+				"name": "PID_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Pool Area_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Pool QC",
+				"type": "String"
+			}
+		]
+	}
+}
