@@ -1,0 +1,9 @@
+{
+	"name": "proyectofinaldfl",
+	"location": "brazilsouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7360108e-027c-4c23-967f-56e8bf5f0e56",
+		"tenantId": "e994072b-523e-4bfe-86e2-442c5e10b244"
+	}
+}
