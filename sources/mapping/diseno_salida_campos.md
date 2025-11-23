@@ -1,17 +1,22 @@
 # Diseño de la tabla de salida (`salida.csv`)
 
-En este documento se describe el origen y la transformación de cada campo que hará parte del archivo `salida.csv`.
+En este documento se describe el origen y la transformación de cada campo que hará parte del archivo `salida.csv`.  
 
-| Campo salida | Tipo dato | Fuente (tabla/colección/csv) | Campo origen | Transformación / Regla | Notas |
-|-------------|-----------|-------------------------------|--------------|------------------------|-------|
-| PID         | NUMBER    | amesdbtemp                    | pid          | Copia directa          | Clave principal de la propiedad |
-| MSSubClass  | NUMBER    | amesdbtemp / mssubclass       | MS SubClass  | Copia / join con `mssubclass` si se requiere descripción |  |
-| MSZoning    | VARCHAR   | amesdbtemp / mszoning         | MS Zoning    | Copia / join para obtener descripción |  |
-| GrLivArea   | NUMBER    | amesdbtemp                    | 1stFlrSF, 2ndFlrSF, LowQualFinSF | `GrLivArea = 1stFlrSF + 2ndFlrSF + LowQualFinSF` |  |
-| FullBath    | NUMBER    | floordetail                   | FullBath     | Suma por `PID` de todos los pisos |  |
-| HalfBath    | NUMBER    | floordetail                   | HalfBath     | Suma por `PID` de todos los pisos |  |
-| Bedroom     | NUMBER    | floordetail                   | bedrooms     | Suma por `PID` de todos los pisos |  |
-| MoSold      | NUMBER    | saleproperty                  | Sale Date    | Mes extraído de la fecha |  |
-| YrSold      | NUMBER    | saleproperty                  | Sale Date    | Año extraído de la fecha |  |
-| YearRemodAdd| NUMBER    | amesdbtemp                    | YearRemodAdd, YearBuilt | Si `YearRemodAdd` es nulo usar `YearBuilt` |  |
-| ...         | ...       | ...                           | ...          | ...                    | ...   |
+La referencia de campos y descripciones está tomada del enunciado del proyecto (sección "Salida esperada").  
+Cada fila corresponde a una columna en `salida.csv`.
+
+## Campos calculados / transformados
+
+| Campo salida  | Tipo dato | Fuente (tabla/colección/csv) | Campo origen                                        | Transformación / Regla                                                                                          | Notas |
+|---------------|-----------|-------------------------------|-----------------------------------------------------|------------------------------------------------------------------------------------------------------------------|-------|
+| PID           | INT       | amesdbtemp                    | pid                                                 | Copia directa                                                                                                   | Clave principal |
+| GrLivArea     | INT       | amesdbtemp                    | 1stFlrSF, 2ndFlrSF, LowQualFinSF                    | GrLivArea = 1stFlrSF + 2ndFlrSF + LowQualFinSF                                                                   | Indicada en enunciado |
+| FullBath      | INT       | floordetail                   | FullBath                                            | Suma por PID de FullBath en todos los pisos                                                                      | Agregación por propiedad |
+| HalfBath      | INT       | floordetail                   | HalfBath                                            | Suma por PID de HalfBath en todos los pisos                                                                      | Agregación por propiedad |
+| Bedroom       | INT       | floordetail                   | Bedroom / Bedrooms (según nombre en tabla)          | Suma por PID de dormitorios en todos los pisos                                                                   | Agregación por propiedad |
+| MoSold        | INT       | saleproperty                  | SaleDate                                            | MoSold = mes(SaleDate)                                                                                           | Solo mes en la salida |
+| YrSold        | INT       | saleproperty                  | SaleDate                                            | YrSold = año(SaleDate)                                                                                           | Solo año en la salida |
+| YearRemodAdd  | INT       | amesdbtemp                    | YearRemodAdd, YearBuilt                             | Si YearRemodAdd es NULL → usar YearBuilt                                                                         | Regla del enunciado |
+| SalePrice     | NUMERIC   | saleproperty                  | SalePrice                                           | Copia directa                                                                                                    | Variable objetivo |
+
+
