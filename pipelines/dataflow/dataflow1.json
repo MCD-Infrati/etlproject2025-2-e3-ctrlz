@@ -13,7 +13,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "DelimitedText1",
+						"referenceName": "AmesProperty",
 						"type": "DatasetReference"
 					},
 					"name": "source2"

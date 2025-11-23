@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "AmesProperty",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Blob_storage_Proyect_Infrati",
