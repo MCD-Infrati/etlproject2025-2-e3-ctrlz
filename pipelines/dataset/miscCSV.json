@@ -1,0 +1,41 @@
+{
+	"name": "miscCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_ames_e3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "miscCSV",
+				"folderPath": "Raw Data",
+				"fileSystem": "adls-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "$oid",
+				"type": "String"
+			},
+			{
+				"name": "PID_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Misc Feature",
+				"type": "String"
+			},
+			{
+				"name": "Misc Val_$numberLong",
+				"type": "String"
+			}
+		]
+	}
+}

@@ -234,6 +234,86 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Copy data3",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MongoDbAtlasSource",
+						"batchSize": 100
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Misc Feature']"
+								},
+								"sink": {
+									"name": "Misc Feature"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Misc Val']['$numberLong']"
+								},
+								"sink": {
+									"name": "Misc Val_$numberLong"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MongoDb_misc",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "miscCSV",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
