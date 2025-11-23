@@ -349,7 +349,92 @@
 							"fileExtension": ".txt"
 						}
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Order']['$numberLong']"
+								},
+								"sink": {
+									"name": "Order_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Type']"
+								},
+								"sink": {
+									"name": "Garage Type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Yr Blt']['$numberLong']"
+								},
+								"sink": {
+									"name": "Garage Yr Blt_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Finish']"
+								},
+								"sink": {
+									"name": "Garage Finish"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Cars']['$numberLong']"
+								},
+								"sink": {
+									"name": "Garage Cars_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Area']['$numberLong']"
+								},
+								"sink": {
+									"name": "Garage Area_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Qual']"
+								},
+								"sink": {
+									"name": "Garage Qual"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Cond']"
+								},
+								"sink": {
+									"name": "Garage Cond"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
