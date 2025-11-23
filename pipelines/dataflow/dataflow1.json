@@ -1,0 +1,64 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzurePostgreSqlTable1",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"name": "source2"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          {Exter Cond} as long,",
+				"          {Exter Qual} as long,",
+				"          {Heating QC} as long,",
+				"          {Kitchen Qual} as long,",
+				"          {MS Zoning} as long,",
+				"          pid as long,",
+				"          {Roof Style} as string,",
+				"          {Roof Matl} as string,",
+				"          {Exterior 1st} as string,",
+				"          {Exterior 2nd} as string,",
+				"          {Mas Vnr Type} as string,",
+				"          {Mas Vnr Area} as long,",
+				"          foundation as string,",
+				"          heating as string,",
+				"          {Central Air} as boolean,",
+				"          electrical as string,",
+				"          {1st Flr SF} as long,",
+				"          {2nd Flr SF} as long,",
+				"          {Low Qual Fin SF} as long,",
+				"          {Kitchen AbvGr} as long,",
+				"          {TotRms AbvGrd} as long,",
+				"          functional as string,",
+				"          fireplaces as long,",
+				"          {Fireplace Qu} as string,",
+				"          {Paved Drive} as string,",
+				"          {Wood Deck SF} as long,",
+				"          {Open Porch SF} as long,",
+				"          {Enclosed Porch} as long,",
+				"          {3Ssn Porch} as long,",
+				"          {Screen Porch} as long,",
+				"          fence as string,",
+				"          {MS SubClass} as long",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source1",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source2"
+			]
+		}
+	}
+}
