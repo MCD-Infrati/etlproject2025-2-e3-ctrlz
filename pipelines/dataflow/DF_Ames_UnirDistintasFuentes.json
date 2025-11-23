@@ -1,5 +1,5 @@
 {
-	"name": "dataflow1",
+	"name": "DF_Ames_UnirDistintasFuentes",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -10,9 +10,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "SRCamesdbtemp"
-				},
-				{
-					"name": "source3"
 				}
 			],
 			"sinks": [],
@@ -55,9 +52,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> SRCamesdbtemp",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source3"
+				"     format: 'table') ~> SRCamesdbtemp"
 			]
 		}
 	}
