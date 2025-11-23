@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "data_bbf98c6b-8079-4738-ad92-8bb38683a75b_1999e619-e8d9-48e6-8951-8eb92cea3ec2.txt",
+				"fileName": "PoolCSV",
 				"folderPath": "Raw Data",
 				"fileSystem": "adls-container"
 			},

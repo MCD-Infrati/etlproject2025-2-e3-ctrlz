@@ -1,5 +1,5 @@
 {
-	"name": "MongoDbAtlasCollection1",
+	"name": "MongoDb_bsmt",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "MongoConn",
