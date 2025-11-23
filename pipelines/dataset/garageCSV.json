@@ -21,11 +21,35 @@
 		},
 		"schema": [
 			{
+				"name": "$oid",
+				"type": "String"
+			},
+			{
+				"name": "Order_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "PID_$numberLong",
+				"type": "String"
+			},
+			{
 				"name": "Garage Type",
 				"type": "String"
 			},
 			{
+				"name": "Garage Yr Blt_$numberLong",
+				"type": "String"
+			},
+			{
 				"name": "Garage Finish",
+				"type": "String"
+			},
+			{
+				"name": "Garage Cars_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Garage Area_$numberLong",
 				"type": "String"
 			},
 			{
