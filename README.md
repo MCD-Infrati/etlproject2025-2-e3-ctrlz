@@ -1,84 +1,90 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/3pYkVW5Y)
-____________________________________________________________________________________
+# ETL – Ames Housing (Grupo CTRL+Z)
 
+Este proyecto es parte del curso de **ETL (MCD-Infrati)** de la Maestría en Ciencia de Datos, Universidad Icesi, Cali – Colombia.
 
-# Project Template
-This is the template for the ETL assignment in the IInfrati course at the Data Science Master, Universidad Icesi, Cali Colombia
+El objetivo es diseñar y construir un proceso **ETL en Azure Data Factory** que integre datos relacionales, archivos CSV y datos en MongoDB para generar un archivo final `salida.csv` con las características de las propiedades del conjunto de datos Ames Housing.
 
-This template is based on the template proposed by the [Data Science Working Group] (https://github.com/sfbrigade/data-science-wg) Code for the [San Francisco’s Code initiative](https://github.com/sfbrigade/data-science-wg) 
+#### -- Project Status: Active
 
-*Instructions: Edit this template filling in the titles, information, and links! Feel free to stray a bit to suit your project but try to provide the main information for reviews and feedback purposes.*
-## Remove this table after updating your project's information
-____________________________________________________________________________________
-
-# Project Name
-This project is a part of the  **Proyecto 1 de Innovación Tecnológica** course in the Applied Artificial Intelligence Master, Universidad Icesi, Cali Colombia. 
-
-#### -- Project Status: [Active, On-Hold, Completed]
+---
 
 ## Contributing Members
 
-**Team Leader: [Full Name](https://github.com/[github handle])(@slackHandle)**
-**Instructor: [Full Name](https://github.com/[github handle])(@slackHandle)**
-
-#### Other Members:
-
-|Name     |  Email   | 
-|---------|-----------------|
-|[Full Name](https://github.com/[github handle])| @johnDoe        |
-|[Full Name](https://github.com/[github handle]) |     @janeDoe    |
+Team Leader: [Angela Villota Gomez](https://github.com/angievig)
+- [Miguel Angel Jaramillo Rodriguez](https://github.com/majaramillor)
+- [Luisa Castaño](https://github.com/usuario3)
+- [Valentina Arana](https://github.com/usuario4)
+- [Sebastian Correa](https://github.com/usuario4)
 
 ## Contact
-* Feel free to contact the team leader or the instructor with any questions or if you are interested in contributing!
 
+Para dudas técnicas o contribuciones, contactar al líder del equipo por GitHub o correo institucional.
 
-## Project Intro/Objective
-The purpose of this project is ________. (Describe the main goals of the project and potential civic impact. Limit to a short paragraph, 3-6 Sentences)
+---
 
-### Partner
-This section should be added when there's a partner institution 
-* [Name of Partner organization/Government department etc..]
-* Website for partner
-* Partner contact: [Name of Contact], [slack handle of contact if any]
-* If you do not have a partner leave this section out
+## Project Intro / Objective
 
-### Methods Used
-* Inferential Statistics
-* Machine Learning
-* Data Visualization
-* Predictive Modeling
-* etc.
+El propósito de este proyecto es construir un flujo ETL completo que:
+
+1. **Extraiga** información de:
+   - Base de datos relacional (tablas `amesdbtemp`, `floordetail`, `saleproperty`, `mssubclass`, `mszoning`, `typequality`).
+   - Archivo CSV `AmesProperty.csv`.
+   - Colecciones de **MongoDB Atlas** (`garage`, `pool`, `bsmt`, `misc`).
+
+2. **Transforme** los datos aplicando reglas específicas:
+   - Cálculo de campos derivados (por ejemplo `GrLivArea`, `MoSold`, `YrSold`).
+   - Agregación de información por propiedad (baños, habitaciones).
+   - Manejo de valores faltantes (uso de `NA` o `0` según el tipo de dato).
+   - Unificación de todas las fuentes en una tabla final.
+
+3. **Cargue** el resultado en un archivo `salida.csv` almacenado en un contenedor de **Azure Blob Storage**.
+
+---
+
+## Methods Used
+
+- Modelado y mapeo de datos.
+- Diseño de procesos ETL.
+- Integración de fuentes relacionales, archivos planos y NoSQL.
+- Validación de calidad de datos.
 
 ### Technologies
-* R 
-* Python
-* D3
-* PostGres, MySql
-* Pandas, jupyter
-* HTML
-* JavaScript
-* etc. 
+
+- Azure Data Factory
+- Azure SQL Database / SQL Server
+- MongoDB Atlas
+- Azure Blob Storage
+- Git / GitHub
+
+---
 
 ## Project Description
-(Provide a more detailed overview of the project.  Talk a bit about your data sources and what questions and hypotheses you are exploring. What specific data analysis/visualization and modeling work are you using to solve the problem? What blockers and challenges are you facing?  Feel free to number or bullet point things here)
+
+El proyecto toma como base el conjunto de datos de Ames Housing y los modelos de base de datos entregados por la profesora (modelo entidad–relación y modelo relacional).
+
+- Los modelos se encuentran en: `sources/docs/Modelos.pdf`.
+- El enunciado del proyecto se encuentra en: `sources/docs/2025-1_EnunciadoProyecto.docx`.
+
+Toda la lógica de transformación de campos hacia la tabla final `salida.csv` se documentará en:
+
+- `sources/mapping/diseno_salida_campos.md`.
+
+Los pipelines y dataflows de **Azure Data Factory** se exportarán y versionarán en:
+
+- `pipelines/`.
+
+El archivo final generado por el proceso ETL se almacenará en:
+
+- `out/salida.csv`.
+
+---
 
 ## Getting Started
-Instructions for contributors
-1. Clone this repo (for help see this [tutorial](https://help.github.com/articles/cloning-a-repository/)).
-2. Raw Data is being kept [here](Repo folder containing raw data) within this repo.
 
-    *If using offline data mention that and how contributors may obtain the data )*
-    
-3. Data processing/transformation scripts are being kept [here](Repo folder containing data processing scripts/notebooks)
-4. etc...
+1. **Clonar el repositorio**
 
-*If your project is well underway and setup is fairly complicated (ie. requires installation of many packages) create another "setup.md" file and link to it here*  
-
-5. Follow setup [instructions](Link to file)
-
-## Featured Notebooks/Analysis/Deliverables
-* [Notebook/Markdown/Slide Deck Title](link)
-* [Notebook/Markdown/Slide DeckTitle](link)
-* [Blog Post](link)
+   ```bash
+   git clone https://github.com/MCD-Infrati/etlproject2025-2-e3-ctrlz.git
+   cd etlproject2025-2-e3-ctrlz
 
 
