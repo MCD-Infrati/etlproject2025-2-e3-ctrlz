@@ -12,10 +12,6 @@
 					"name": "source1"
 				},
 				{
-					"dataset": {
-						"referenceName": "AmesProperty",
-						"type": "DatasetReference"
-					},
 					"name": "source2"
 				}
 			],
@@ -82,8 +78,7 @@
 				"          {Year Remod/Add} as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source2"
+				"     validateSchema: false) ~> source2"
 			]
 		}
 	}
