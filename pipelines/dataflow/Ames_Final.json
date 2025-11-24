@@ -1,0 +1,67 @@
+{
+	"name": "Ames_Final",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Posgres_join_file",
+						"type": "DatasetReference"
+					},
+					"name": "Posgres"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          PID as string,",
+				"          GrLivArea as string,",
+				"          SalePrice as string,",
+				"          SaleType as string,",
+				"          SaleCondition as string,",
+				"          MoSold as string,",
+				"          YrSold as string,",
+				"          Bedroom as string,",
+				"          FullBath as string,",
+				"          HalfBath as string,",
+				"          MSSubClass as string,",
+				"          MSZoning as string,",
+				"          ExterQual as string,",
+				"          ExterCond as string,",
+				"          HeatingQC as string,",
+				"          KitchenQual as string,",
+				"          Kitchen as string,",
+				"          TotRmsAbvGrd as string,",
+				"          MasVnrArea as string,",
+				"          MasVnrType as string,",
+				"          CentralAir as string,",
+				"          RoofStyle as string,",
+				"          RoofMatl as string,",
+				"          Exterior1st as string,",
+				"          Exterior2nd as string,",
+				"          PavedDrive as string,",
+				"          WoodDeckSF as string,",
+				"          OpenPorchSF as string,",
+				"          EnclosedPorch as string,",
+				"          {3SsnPorch} as string,",
+				"          ScreenPorch as string,",
+				"          FireplaceQu as string,",
+				"          {1stFlrSF} as string,",
+				"          {2ndFlrSF} as string,",
+				"          LowQualFinSF as string,",
+				"          Fireplaces as string,",
+				"          Fence as string,",
+				"          Foundation as string,",
+				"          Heating as string,",
+				"          Electrical as string,",
+				"          Functional as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Posgres"
+			]
+		}
+	}
+}
