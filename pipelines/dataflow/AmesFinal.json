@@ -23,11 +23,18 @@
 						"referenceName": "Ames_MongoData",
 						"type": "DatasetReference"
 					},
-					"name": "MongoData"
+					"name": "Mongo"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "JoinAmes"
+				},
+				{
+					"name": "JoinMongo"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          PID as integer,",
@@ -99,9 +106,48 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> AmesProperty",
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          {$oid} as string,",
+				"          {PID_$numberLong} as integer,",
+				"          {Bsmt Qual} as string,",
+				"          {Bsmt Cond} as string,",
+				"          {Bsmt Exposure} as string,",
+				"          {BsmtFin Type 1} as string,",
+				"          {BsmtFin SF 1_$numberLong} as short,",
+				"          {BsmtFin Type 2} as string,",
+				"          {BsmtFin SF 2_$numberLong} as short,",
+				"          {Bsmt Unf SF_$numberLong} as short,",
+				"          {Total Bsmt SF_$numberLong} as short,",
+				"          {Bsmt Full Bath_$numberLong} as short,",
+				"          {Bsmt Half Bath_$numberLong} as short,",
+				"          {Order_$numberLong} as short,",
+				"          {Garage Type} as string,",
+				"          {Garage Yr Blt_$numberLong} as short,",
+				"          {Garage Finish} as string,",
+				"          {Garage Cars_$numberLong} as short,",
+				"          {Garage Area_$numberLong} as short,",
+				"          {Garage Qual} as string,",
+				"          {Garage Cond} as string,",
+				"          PID_Join1 as integer,",
+				"          {Misc Feature} as string,",
+				"          {Misc Val_$numberLong} as short,",
+				"          {Pool Area_$numberLong} as short,",
+				"          {Pool QC} as string,",
+				"          PID_Join2 as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> MongoData"
+				"     ignoreNoFilesFound: false) ~> Mongo",
+				"Posgres, AmesProperty join(Posgres@PID == AmesProperty@PID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinAmes",
+				"JoinAmes, Mongo join(Posgres@PID == {PID_$numberLong},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinMongo"
 			]
 		}
 	}
