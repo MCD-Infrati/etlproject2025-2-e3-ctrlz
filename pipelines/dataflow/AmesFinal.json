@@ -45,6 +45,12 @@
 				},
 				{
 					"name": "JoinMongo"
+				},
+				{
+					"name": "LimpiarColumnas"
+				},
+				{
+					"name": "TratarNulos"
 				}
 			],
 			"scriptLines": [
@@ -160,7 +166,24 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> JoinMongo",
-				"JoinMongo sink(allowSchemaDrift: true,",
+				"JoinMongo select(mapColumn(",
+				"          each(match(name != 'PID_Join1' && name != 'PID_Join2' && name != 'PID_$numberLong'))",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> LimpiarColumnas",
+				"LimpiarColumnas derive({Garage Area_$numberLong} = iif(isNull({Garage Area_$numberLong}), 0, toInteger({Garage Area_$numberLong})),",
+				"          {Total Bsmt SF_$numberLong} = iif(isNull({Total Bsmt SF_$numberLong}), 0, toInteger({Total Bsmt SF_$numberLong})),",
+				"          {Pool Area_$numberLong} = iif(isNull({Pool Area_$numberLong}), 0, toInteger({Pool Area_$numberLong})),",
+				"          {Misc Val_$numberLong} = iif(isNull({Misc Val_$numberLong}), 0, toInteger({Misc Val_$numberLong})),",
+				"          {Garage Cars_$numberLong} = iif(isNull({Garage Cars_$numberLong}), 0, toInteger({Garage Cars_$numberLong})),",
+				"          {Garage Qual} = iif(isNull({Garage Qual}), 'NA', toString({Garage Qual})),",
+				"          {Garage Cond} = iif(isNull({Garage Cond}), 'NA', toString({Garage Cond})),",
+				"          {Pool QC} = iif(isNull({Pool QC}), 'NA', toString({Pool QC})),",
+				"          {Bsmt Qual} = iif(isNull({Bsmt Qual}), 'NA', toString({Bsmt Qual})),",
+				"          {Bsmt Cond} = iif(isNull({Bsmt Cond}), 'NA', toString({Bsmt Cond})),",
+				"          {Misc Feature} = iif(isNull({Misc Feature}), 'NA', toString({Misc Feature})),",
+				"          Fence = iif(isNull({Fence}), 'NA', toString({Fence}))) ~> TratarNulos",
+				"TratarNulos sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delimited',",
 				"     fileSystem: 'adls-container',",
