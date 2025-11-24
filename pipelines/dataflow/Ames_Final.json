@@ -10,6 +10,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "Posgres"
+				},
+				{
+					"dataset": {
+						"referenceName": "AmesProperty",
+						"type": "DatasetReference"
+					},
+					"name": "AmesProperty"
 				}
 			],
 			"sinks": [],
@@ -60,7 +67,31 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> Posgres"
+				"     ignoreNoFilesFound: false) ~> Posgres",
+				"source(output(",
+				"          PID as string,",
+				"          {Lot Frontage} as string,",
+				"          {Lot Area} as string,",
+				"          Street as string,",
+				"          Alley as string,",
+				"          {Lot Shape} as string,",
+				"          {Land Contour} as string,",
+				"          Utilities as string,",
+				"          {Lot Config} as string,",
+				"          {Land Slope} as string,",
+				"          Neighborhood as string,",
+				"          {Condition 1} as string,",
+				"          {Condition 2} as string,",
+				"          {Bldg Type} as string,",
+				"          {House Style} as string,",
+				"          {Overall Qual} as string,",
+				"          {Overall Cond} as string,",
+				"          {Year Built} as string,",
+				"          {Year Remod/Add} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> AmesProperty"
 			]
 		}
 	}
