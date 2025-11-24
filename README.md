@@ -225,23 +225,3 @@ El archivo `notebooks/validacion_salida.ipynb` incluye:
 3. **Versionado de datos:** Implementar estrategia de versionado para salida.csv
 4. **Testing automatizado:** Crear suite de pruebas unitarias para cada transformación
 5. **Documentación dinámica:** Generar documentación automática desde los metadatos del pipeline
-
----
-
-##  Referencias
-
-* [Azure Data Factory Documentation](https://docs.microsoft.com/azure/data-factory/)
-* [Ames Housing Dataset](http://jse.amstat.org/v19n3/decock.pdf)
-* [MongoDB Atlas Documentation](https://docs.atlas.mongodb.com/)
-
----
-
-##  License
-
-Este proyecto es de uso académico para el curso MCD-Infrati, Universidad Icesi.
-
----
-
-**Última actualización:** Noviembre 2025
-
-
