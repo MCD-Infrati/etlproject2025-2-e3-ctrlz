@@ -28,10 +28,6 @@
 			],
 			"sinks": [
 				{
-					"linkedService": {
-						"referenceName": "Datalake_ames_e3",
-						"type": "LinkedServiceReference"
-					},
 					"name": "salida",
 					"rejectedDataLinkedService": {
 						"referenceName": "Datalake_ames_e3",
@@ -47,10 +43,7 @@
 					"name": "JoinMongo"
 				},
 				{
-					"name": "LimpiarColumnas"
-				},
-				{
-					"name": "TratarNulos"
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -161,49 +154,19 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> JoinAmes",
-				"JoinAmes, Mongo join(Posgres@PID == {PID_$numberLong},",
+				"derivedColumn1, Mongo join(Posgres@PID == {PID_$numberLong},",
 				"     joinType:'left',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> JoinMongo",
-				"JoinMongo select(mapColumn(",
-				"          each(match(name != 'PID_Join1' && name != 'PID_Join2' && name != 'PID_$numberLong'))",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> LimpiarColumnas",
-				"LimpiarColumnas derive({Garage Area_$numberLong} = iif(isNull({Garage Area_$numberLong}), 0, toInteger({Garage Area_$numberLong})),",
-				"          {Total Bsmt SF_$numberLong} = iif(isNull({Total Bsmt SF_$numberLong}), 0, toInteger({Total Bsmt SF_$numberLong})),",
-				"          {Pool Area_$numberLong} = iif(isNull({Pool Area_$numberLong}), 0, toInteger({Pool Area_$numberLong})),",
-				"          {Misc Val_$numberLong} = iif(isNull({Misc Val_$numberLong}), 0, toInteger({Misc Val_$numberLong})),",
-				"          {Garage Cars_$numberLong} = iif(isNull({Garage Cars_$numberLong}), 0, toInteger({Garage Cars_$numberLong})),",
-				"          {Garage Qual} = iif(isNull({Garage Qual}), 'NA', toString({Garage Qual})),",
-				"          {Garage Cond} = iif(isNull({Garage Cond}), 'NA', toString({Garage Cond})),",
-				"          {Pool QC} = iif(isNull({Pool QC}), 'NA', toString({Pool QC})),",
-				"          {Bsmt Qual} = iif(isNull({Bsmt Qual}), 'NA', toString({Bsmt Qual})),",
-				"          {Bsmt Cond} = iif(isNull({Bsmt Cond}), 'NA', toString({Bsmt Cond})),",
-				"          {Misc Feature} = iif(isNull({Misc Feature}), 'NA', toString({Misc Feature})),",
-				"          Fence = iif(isNull(Fence), 'NA', toString(Fence)),",
-				"          Alley = iif(isNull(Alley), 'NA', toString(Alley)),",
-				"          MasVnrType = iif(isNull(MasVnrType), 'NA', toString(MasVnrType)),",
-				"          FireplaceQu = iif(isNull(FireplaceQu), 'NA', toString(FireplaceQu)),",
-				"          {Lot Frontage} = iif(isNull({Lot Frontage}), 0, toInteger({Lot Frontage})),",
-				"          MasVnrArea = iif(isNull(MasVnrArea), 0, toInteger(MasVnrArea)),",
-				"          {Lot Area} = iif(isNull({Lot Area}), 0, toInteger({Lot Area}))) ~> TratarNulos",
-				"TratarNulos sink(allowSchemaDrift: true,",
+				"JoinAmes derive({PID JOIN} = coalesce(Posgres@PID,AmesProperty@PID)) ~> derivedColumn1",
+				"JoinMongo sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'delimited',",
-				"     fileSystem: 'adls-container',",
-				"     folderPath: 'Output',",
-				"     columnDelimiter: ',',",
-				"     escapeChar: '\\\\',",
-				"     quoteChar: '\\\"',",
-				"     columnNamesAsHeader: true,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     saveOrder: 1) ~> salida"
+				"     saveOrder: 1,",
+				"     preCommands: [],",
+				"     postCommands: []) ~> salida"
 			]
 		}
 	}
