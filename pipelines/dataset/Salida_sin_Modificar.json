@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText1",
+	"name": "Salida_sin_Modificar",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Datalake_ames_e3",
@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": "Output",
+				"fileName": "Salida_sin_modificar.csv",
+				"folderPath": "Raw Data",
 				"fileSystem": "adls-container"
 			},
 			"columnDelimiter": ",",
