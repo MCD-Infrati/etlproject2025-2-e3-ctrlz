@@ -1,0 +1,108 @@
+{
+	"name": "AmesFinal",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Posgres_join_file",
+						"type": "DatasetReference"
+					},
+					"name": "Posgres"
+				},
+				{
+					"dataset": {
+						"referenceName": "AmesProperty",
+						"type": "DatasetReference"
+					},
+					"name": "AmesProperty"
+				},
+				{
+					"dataset": {
+						"referenceName": "Ames_MongoData",
+						"type": "DatasetReference"
+					},
+					"name": "MongoData"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          PID as integer,",
+				"          GrLivArea as short,",
+				"          SalePrice as integer,",
+				"          SaleType as string,",
+				"          SaleCondition as string,",
+				"          MoSold as short,",
+				"          YrSold as short,",
+				"          Bedroom as short,",
+				"          FullBath as short,",
+				"          HalfBath as short,",
+				"          MSSubClass as short,",
+				"          MSZoning as short,",
+				"          ExterQual as short,",
+				"          ExterCond as short,",
+				"          HeatingQC as short,",
+				"          KitchenQual as short,",
+				"          Kitchen as short,",
+				"          TotRmsAbvGrd as short,",
+				"          MasVnrArea as short,",
+				"          MasVnrType as string,",
+				"          CentralAir as boolean,",
+				"          RoofStyle as string,",
+				"          RoofMatl as string,",
+				"          Exterior1st as string,",
+				"          Exterior2nd as string,",
+				"          PavedDrive as string,",
+				"          WoodDeckSF as short,",
+				"          OpenPorchSF as short,",
+				"          EnclosedPorch as short,",
+				"          {3SsnPorch} as short,",
+				"          ScreenPorch as short,",
+				"          FireplaceQu as string,",
+				"          {1stFlrSF} as short,",
+				"          {2ndFlrSF} as short,",
+				"          LowQualFinSF as short,",
+				"          Fireplaces as short,",
+				"          Fence as string,",
+				"          Foundation as string,",
+				"          Heating as string,",
+				"          Electrical as string,",
+				"          Functional as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Posgres",
+				"source(output(",
+				"          PID as integer,",
+				"          {Lot Frontage} as string,",
+				"          {Lot Area} as string,",
+				"          Street as string,",
+				"          Alley as string,",
+				"          {Lot Shape} as string,",
+				"          {Land Contour} as string,",
+				"          Utilities as string,",
+				"          {Lot Config} as string,",
+				"          {Land Slope} as string,",
+				"          Neighborhood as string,",
+				"          {Condition 1} as string,",
+				"          {Condition 2} as string,",
+				"          {Bldg Type} as string,",
+				"          {House Style} as string,",
+				"          {Overall Qual} as string,",
+				"          {Overall Cond} as string,",
+				"          {Year Built} as string,",
+				"          {Year Remod/Add} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> AmesProperty",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> MongoData"
+			]
+		}
+	}
+}
