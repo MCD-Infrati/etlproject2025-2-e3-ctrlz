@@ -1,0 +1,189 @@
+{
+	"name": "Posgres_join_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_ames_e3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Posgres_join_file.csv",
+				"folderPath": "Raw Data",
+				"fileSystem": "adls-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PID",
+				"type": "String"
+			},
+			{
+				"name": "GrLivArea",
+				"type": "String"
+			},
+			{
+				"name": "SalePrice",
+				"type": "String"
+			},
+			{
+				"name": "SaleType",
+				"type": "String"
+			},
+			{
+				"name": "SaleCondition",
+				"type": "String"
+			},
+			{
+				"name": "MoSold",
+				"type": "String"
+			},
+			{
+				"name": "YrSold",
+				"type": "String"
+			},
+			{
+				"name": "Bedroom",
+				"type": "String"
+			},
+			{
+				"name": "FullBath",
+				"type": "String"
+			},
+			{
+				"name": "HalfBath",
+				"type": "String"
+			},
+			{
+				"name": "MSSubClass",
+				"type": "String"
+			},
+			{
+				"name": "MSZoning",
+				"type": "String"
+			},
+			{
+				"name": "ExterQual",
+				"type": "String"
+			},
+			{
+				"name": "ExterCond",
+				"type": "String"
+			},
+			{
+				"name": "HeatingQC",
+				"type": "String"
+			},
+			{
+				"name": "KitchenQual",
+				"type": "String"
+			},
+			{
+				"name": "Kitchen",
+				"type": "String"
+			},
+			{
+				"name": "TotRmsAbvGrd",
+				"type": "String"
+			},
+			{
+				"name": "MasVnrArea",
+				"type": "String"
+			},
+			{
+				"name": "MasVnrType",
+				"type": "String"
+			},
+			{
+				"name": "CentralAir",
+				"type": "String"
+			},
+			{
+				"name": "RoofStyle",
+				"type": "String"
+			},
+			{
+				"name": "RoofMatl",
+				"type": "String"
+			},
+			{
+				"name": "Exterior1st",
+				"type": "String"
+			},
+			{
+				"name": "Exterior2nd",
+				"type": "String"
+			},
+			{
+				"name": "PavedDrive",
+				"type": "String"
+			},
+			{
+				"name": "WoodDeckSF",
+				"type": "String"
+			},
+			{
+				"name": "OpenPorchSF",
+				"type": "String"
+			},
+			{
+				"name": "EnclosedPorch",
+				"type": "String"
+			},
+			{
+				"name": "3SsnPorch",
+				"type": "String"
+			},
+			{
+				"name": "ScreenPorch",
+				"type": "String"
+			},
+			{
+				"name": "FireplaceQu",
+				"type": "String"
+			},
+			{
+				"name": "1stFlrSF",
+				"type": "String"
+			},
+			{
+				"name": "2ndFlrSF",
+				"type": "String"
+			},
+			{
+				"name": "LowQualFinSF",
+				"type": "String"
+			},
+			{
+				"name": "Fireplaces",
+				"type": "String"
+			},
+			{
+				"name": "Fence",
+				"type": "String"
+			},
+			{
+				"name": "Foundation",
+				"type": "String"
+			},
+			{
+				"name": "Heating",
+				"type": "String"
+			},
+			{
+				"name": "Electrical",
+				"type": "String"
+			},
+			{
+				"name": "Functional",
+				"type": "String"
+			}
+		]
+	}
+}

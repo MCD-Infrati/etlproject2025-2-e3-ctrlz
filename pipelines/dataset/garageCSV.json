@@ -1,0 +1,65 @@
+{
+	"name": "garageCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_ames_e3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "garageCSV",
+				"folderPath": "Raw Data",
+				"fileSystem": "adls-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "$oid",
+				"type": "String"
+			},
+			{
+				"name": "Order_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "PID_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Garage Type",
+				"type": "String"
+			},
+			{
+				"name": "Garage Yr Blt_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Garage Finish",
+				"type": "String"
+			},
+			{
+				"name": "Garage Cars_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Garage Area_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Garage Qual",
+				"type": "String"
+			},
+			{
+				"name": "Garage Cond",
+				"type": "String"
+			}
+		]
+	}
+}

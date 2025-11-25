@@ -1,0 +1,101 @@
+{
+	"name": "AmesProperty",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_ames_e3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "AmesProperty.csv",
+				"folderPath": "Raw Data",
+				"fileSystem": "adls-container"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PID",
+				"type": "String"
+			},
+			{
+				"name": "Lot Frontage",
+				"type": "String"
+			},
+			{
+				"name": "Lot Area",
+				"type": "String"
+			},
+			{
+				"name": "Street",
+				"type": "String"
+			},
+			{
+				"name": "Alley",
+				"type": "String"
+			},
+			{
+				"name": "Lot Shape",
+				"type": "String"
+			},
+			{
+				"name": "Land Contour",
+				"type": "String"
+			},
+			{
+				"name": "Utilities",
+				"type": "String"
+			},
+			{
+				"name": "Lot Config",
+				"type": "String"
+			},
+			{
+				"name": "Land Slope",
+				"type": "String"
+			},
+			{
+				"name": "Neighborhood",
+				"type": "String"
+			},
+			{
+				"name": "Condition 1",
+				"type": "String"
+			},
+			{
+				"name": "Condition 2",
+				"type": "String"
+			},
+			{
+				"name": "Bldg Type",
+				"type": "String"
+			},
+			{
+				"name": "House Style",
+				"type": "String"
+			},
+			{
+				"name": "Overall Qual",
+				"type": "String"
+			},
+			{
+				"name": "Overall Cond",
+				"type": "String"
+			},
+			{
+				"name": "Year Built",
+				"type": "String"
+			},
+			{
+				"name": "Year Remod/Add",
+				"type": "String"
+			}
+		]
+	}
+}

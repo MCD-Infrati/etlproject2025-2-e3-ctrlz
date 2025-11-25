@@ -1,0 +1,77 @@
+{
+	"name": "bsmtCSV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Datalake_ames_e3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "bsmtCSV",
+				"folderPath": "Raw Data",
+				"fileSystem": "adls-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "$oid",
+				"type": "String"
+			},
+			{
+				"name": "PID_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Bsmt Qual",
+				"type": "String"
+			},
+			{
+				"name": "Bsmt Cond",
+				"type": "String"
+			},
+			{
+				"name": "Bsmt Exposure",
+				"type": "String"
+			},
+			{
+				"name": "BsmtFin Type 1",
+				"type": "String"
+			},
+			{
+				"name": "BsmtFin SF 1_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "BsmtFin Type 2",
+				"type": "String"
+			},
+			{
+				"name": "BsmtFin SF 2_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Bsmt Unf SF_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Total Bsmt SF_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Bsmt Full Bath_$numberLong",
+				"type": "String"
+			},
+			{
+				"name": "Bsmt Half Bath_$numberLong",
+				"type": "String"
+			}
+		]
+	}
+}

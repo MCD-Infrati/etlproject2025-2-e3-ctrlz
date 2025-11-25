@@ -1,0 +1,60 @@
+{
+  "name": "Mongo_Join",
+  "properties": {
+    "type": "MappingDataFlow",
+    "typeProperties": {
+      "sources": [
+        {
+          "dataset": { "referenceName": "bsmtCSV", "type": "DatasetReference" },
+          "name": "Bsmt"
+        },
+        {
+          "dataset": { "referenceName": "garageCSV", "type": "DatasetReference" },
+          "name": "Garage"
+        },
+        {
+          "dataset": { "referenceName": "miscCSV", "type": "DatasetReference" },
+          "name": "Misc"
+        },
+        {
+          "dataset": { "referenceName": "PoolCSV", "type": "DatasetReference" },
+          "name": "Pool"
+        }
+      ],
+      "sinks": [
+        {
+          "dataset": { "referenceName": "Posgres_join_file", "type": "DatasetReference" },
+          "name": "SalidaMongo"
+        }
+      ],
+      "transformations": [
+        { "name": "JoinBsmtGarage" },
+        { "name": "JoinMiscPool" },
+        { "name": "FinalJoin" },
+        { "name": "DerivePID1" },
+        { "name": "DerivePID2" }
+      ],
+      "scriptLines": [
+        "Bsmt derive(PID_BSMT = {PID_$numberLong}) ~> Bsmt",
+        "Garage derive(PID_GAR = {PID_$numberLong}) ~> Garage",
+        "Misc derive(PID_MISC = {PID_$numberLong}) ~> Misc",
+        "Pool derive(PID_POOL = {PID_$numberLong}) ~> Pool",
+
+        "Bsmt, Garage join(Bsmt@PID_BSMT == Garage@PID_GAR, joinType:'outer') ~> JoinBsmtGarage",
+        "Misc, Pool join(Misc@PID_MISC == Pool@PID_POOL, joinType:'outer') ~> JoinMiscPool",
+
+        "JoinBsmtGarage derive(PID_Join1 = coalesce(Bsmt@PID_BSMT, Garage@PID_GAR)) ~> DerivePID1",
+        "JoinMiscPool derive(PID_Join2 = coalesce(Misc@PID_MISC, Pool@PID_POOL)) ~> DerivePID2",
+
+        "DerivePID1, DerivePID2 join(PID_Join1 == PID_Join2, joinType:'outer') ~> FinalJoin",
+
+        "FinalJoin sink(format:'delimited',",
+        "     columnDelimiter:',',",
+        "     fileName:'mongo_join_output.csv',",
+        "     fileSystem:'adls-container',",
+        "     folderPath:'MongoJoin',",
+        "     columnNamesAsHeader:true) ~> SalidaMongo"
+      ]
+    }
+  }
+}

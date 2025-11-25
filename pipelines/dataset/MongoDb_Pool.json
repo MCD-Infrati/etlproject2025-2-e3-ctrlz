@@ -1,0 +1,15 @@
+{
+	"name": "MongoDb_Pool",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MongoConn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MongoDbAtlasCollection",
+		"schema": [],
+		"typeProperties": {
+			"collection": "pool"
+		}
+	}
+}

@@ -1,0 +1,455 @@
+{
+	"name": "LoadingFromMongo",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MongoDbAtlasSource",
+						"batchSize": 100
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Pool Area']['$numberLong']"
+								},
+								"sink": {
+									"name": "Pool Area_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Pool QC']"
+								},
+								"sink": {
+									"name": "Pool QC"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MongoDb_Pool",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PoolCSV",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MongoDbAtlasSource",
+						"batchSize": 100
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bsmt Qual']"
+								},
+								"sink": {
+									"name": "Bsmt Qual"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bsmt Cond']"
+								},
+								"sink": {
+									"name": "Bsmt Cond"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bsmt Exposure']"
+								},
+								"sink": {
+									"name": "Bsmt Exposure"
+								}
+							},
+							{
+								"source": {
+									"path": "$['BsmtFin Type 1']"
+								},
+								"sink": {
+									"name": "BsmtFin Type 1"
+								}
+							},
+							{
+								"source": {
+									"path": "$['BsmtFin SF 1']['$numberLong']"
+								},
+								"sink": {
+									"name": "BsmtFin SF 1_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['BsmtFin Type 2']"
+								},
+								"sink": {
+									"name": "BsmtFin Type 2"
+								}
+							},
+							{
+								"source": {
+									"path": "$['BsmtFin SF 2']['$numberLong']"
+								},
+								"sink": {
+									"name": "BsmtFin SF 2_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bsmt Unf SF']['$numberLong']"
+								},
+								"sink": {
+									"name": "Bsmt Unf SF_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Total Bsmt SF']['$numberLong']"
+								},
+								"sink": {
+									"name": "Total Bsmt SF_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bsmt Full Bath']['$numberLong']"
+								},
+								"sink": {
+									"name": "Bsmt Full Bath_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Bsmt Half Bath']['$numberLong']"
+								},
+								"sink": {
+									"name": "Bsmt Half Bath_$numberLong"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MongoDb_bsmt",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "bsmtCSV",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy data3",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MongoDbAtlasSource",
+						"batchSize": 100
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Misc Feature']"
+								},
+								"sink": {
+									"name": "Misc Feature"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Misc Val']['$numberLong']"
+								},
+								"sink": {
+									"name": "Misc Val_$numberLong"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MongoDb_misc",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "miscCSV",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy data4",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MongoDbAtlasSource",
+						"batchSize": 100
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['_id']['$oid']"
+								},
+								"sink": {
+									"name": "$oid"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Order']['$numberLong']"
+								},
+								"sink": {
+									"name": "Order_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['PID']['$numberLong']"
+								},
+								"sink": {
+									"name": "PID_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Type']"
+								},
+								"sink": {
+									"name": "Garage Type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Yr Blt']['$numberLong']"
+								},
+								"sink": {
+									"name": "Garage Yr Blt_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Finish']"
+								},
+								"sink": {
+									"name": "Garage Finish"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Cars']['$numberLong']"
+								},
+								"sink": {
+									"name": "Garage Cars_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Area']['$numberLong']"
+								},
+								"sink": {
+									"name": "Garage Area_$numberLong"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Qual']"
+								},
+								"sink": {
+									"name": "Garage Qual"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Garage Cond']"
+								},
+								"sink": {
+									"name": "Garage Cond"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MongoDb_garage",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "garageCSV",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

@@ -1,0 +1,178 @@
+{
+	"name": "AmesFinal",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Posgres_join_file",
+						"type": "DatasetReference"
+					},
+					"name": "Posgres"
+				},
+				{
+					"dataset": {
+						"referenceName": "AmesProperty",
+						"type": "DatasetReference"
+					},
+					"name": "AmesProperty"
+				},
+				{
+					"dataset": {
+						"referenceName": "Ames_MongoData",
+						"type": "DatasetReference"
+					},
+					"name": "Mongo"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Salida_sin_Modificar",
+						"type": "DatasetReference"
+					},
+					"name": "salida",
+					"rejectedDataLinkedService": {
+						"referenceName": "Datalake_ames_e3",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "JoinAmes"
+				},
+				{
+					"name": "JoinMongo"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          PID as integer,",
+				"          GrLivArea as short,",
+				"          SalePrice as integer,",
+				"          SaleType as string,",
+				"          SaleCondition as string,",
+				"          MoSold as short,",
+				"          YrSold as short,",
+				"          Bedroom as short,",
+				"          FullBath as short,",
+				"          HalfBath as short,",
+				"          MSSubClass as short,",
+				"          MSZoning as short,",
+				"          ExterQual as short,",
+				"          ExterCond as short,",
+				"          HeatingQC as short,",
+				"          KitchenQual as short,",
+				"          Kitchen as short,",
+				"          TotRmsAbvGrd as short,",
+				"          MasVnrArea as short,",
+				"          MasVnrType as string,",
+				"          CentralAir as boolean,",
+				"          RoofStyle as string,",
+				"          RoofMatl as string,",
+				"          Exterior1st as string,",
+				"          Exterior2nd as string,",
+				"          PavedDrive as string,",
+				"          WoodDeckSF as short,",
+				"          OpenPorchSF as short,",
+				"          EnclosedPorch as short,",
+				"          {3SsnPorch} as short,",
+				"          ScreenPorch as short,",
+				"          FireplaceQu as string,",
+				"          {1stFlrSF} as short,",
+				"          {2ndFlrSF} as short,",
+				"          LowQualFinSF as short,",
+				"          Fireplaces as short,",
+				"          Fence as string,",
+				"          Foundation as string,",
+				"          Heating as string,",
+				"          Electrical as string,",
+				"          Functional as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Posgres",
+				"source(output(",
+				"          PID as integer,",
+				"          {Lot Frontage} as string,",
+				"          {Lot Area} as string,",
+				"          Street as string,",
+				"          Alley as string,",
+				"          {Lot Shape} as string,",
+				"          {Land Contour} as string,",
+				"          Utilities as string,",
+				"          {Lot Config} as string,",
+				"          {Land Slope} as string,",
+				"          Neighborhood as string,",
+				"          {Condition 1} as string,",
+				"          {Condition 2} as string,",
+				"          {Bldg Type} as string,",
+				"          {House Style} as string,",
+				"          {Overall Qual} as string,",
+				"          {Overall Cond} as string,",
+				"          {Year Built} as string,",
+				"          {Year Remod/Add} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> AmesProperty",
+				"source(output(",
+				"          {$oid} as string,",
+				"          {PID_$numberLong} as integer,",
+				"          {Bsmt Qual} as string,",
+				"          {Bsmt Cond} as string,",
+				"          {Bsmt Exposure} as string,",
+				"          {BsmtFin Type 1} as string,",
+				"          {BsmtFin SF 1_$numberLong} as short,",
+				"          {BsmtFin Type 2} as string,",
+				"          {BsmtFin SF 2_$numberLong} as short,",
+				"          {Bsmt Unf SF_$numberLong} as short,",
+				"          {Total Bsmt SF_$numberLong} as short,",
+				"          {Bsmt Full Bath_$numberLong} as short,",
+				"          {Bsmt Half Bath_$numberLong} as short,",
+				"          {Order_$numberLong} as short,",
+				"          {Garage Type} as string,",
+				"          {Garage Yr Blt_$numberLong} as short,",
+				"          {Garage Finish} as string,",
+				"          {Garage Cars_$numberLong} as short,",
+				"          {Garage Area_$numberLong} as short,",
+				"          {Garage Qual} as string,",
+				"          {Garage Cond} as string,",
+				"          PID_Join1 as integer,",
+				"          {Misc Feature} as string,",
+				"          {Misc Val_$numberLong} as short,",
+				"          {Pool Area_$numberLong} as short,",
+				"          {Pool QC} as string,",
+				"          PID_Join2 as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Mongo",
+				"Posgres, AmesProperty join(Posgres@PID == AmesProperty@PID,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinAmes",
+				"derivedColumn1, Mongo join(Posgres@PID == {PID_$numberLong},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> JoinMongo",
+				"JoinAmes derive({PID JOIN} = coalesce(Posgres@PID,AmesProperty@PID)) ~> derivedColumn1",
+				"JoinMongo sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     saveOrder: 1) ~> salida"
+			]
+		}
+	}
+}
